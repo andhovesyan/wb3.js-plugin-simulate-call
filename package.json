@@ -1,6 +1,6 @@
 {
   "name": "@exio.tech/web3-plugin-debug",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Web3.js plugin for debug_* calls",
   "main": "lib/debug-plugin.js",
   "types": "lib/index.d.ts",
