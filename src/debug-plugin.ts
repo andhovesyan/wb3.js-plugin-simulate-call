@@ -110,10 +110,24 @@ function configureTracer(tracer: string | TraceConfig): TraceConfig {
   return tracer;
 }
 
+export class DebugContract<Abi extends ContractAbi> extends Contract<Abi> {
+  protected _debugableMethods = {} as DebugableContractMethodsInterface<Abi>;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public constructor(jsonInterface: Abi, ...args: any[]) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    super(jsonInterface, ...args);
+  }
+
+  public get methods(): DebugableContractMethodsInterface<Abi> {
+    return this._debugableMethods;
+  }
+}
+
 export class DebugPlugin extends Web3PluginBase<DebugRpcApi> {
   public pluginNamespace = "debug";
 
-  public Contract;
+  public Contract: typeof DebugContract;
 
   private defaults: PluginConfig = {
     tracer: "callTracer",
@@ -127,9 +141,7 @@ export class DebugPlugin extends Web3PluginBase<DebugRpcApi> {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
 
-    this.Contract = class<Abi extends ContractAbi> extends Contract<Abi> {
-      private _debugableMethods: DebugableContractMethodsInterface<Abi>;
-
+    this.Contract = class<Abi extends ContractAbi> extends DebugContract<Abi> {
       public constructor(jsonInterface: Abi);
       public constructor(jsonInterface: Abi, address: Address);
       public constructor(jsonInterface: Abi, options: ContractInitOptions);
@@ -204,10 +216,6 @@ export class DebugPlugin extends Web3PluginBase<DebugRpcApi> {
             ];
           }),
         ) as DebugableContractMethodsInterface<Abi>;
-      }
-
-      public get methods(): DebugableContractMethodsInterface<Abi> {
-        return this._debugableMethods;
       }
     };
   }
