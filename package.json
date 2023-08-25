@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Web3.js plugin for debug_* calls",
   "main": "lib/debug-plugin.js",
-  "types": "lib/index.d.ts",
+  "types": "lib/debug-plugin.d.ts",
   "homepage": "https://github.com/exiotech/web3.js-plugin-debug#readme",
   "bugs": {
     "url": "https://github.com/exiotech/web3.js-plugin-debug/issues"
@@ -12,7 +12,7 @@
     "lint": "eslint '{src,test}/**/*.ts'",
     "build": "tsc --project tsconfig.build.json",
     "test": "jest --config=./test/jest.config.js",
-    "start": "npx ts-node index.ts"
+    "start": "npx ts-node src/index.ts"
   },
   "contributors": [
     "Andranik Hovesyan <andranik@hovesyan.pro>"

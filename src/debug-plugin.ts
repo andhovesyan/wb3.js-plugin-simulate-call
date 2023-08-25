@@ -29,12 +29,12 @@ import type {
 
 import { isNullish } from "web3-utils";
 
-export type PluginConfig = {
+export declare type PluginConfig = {
   tracer?: string | TraceConfig;
   block?: string;
 };
 
-export type TraceConfig = {
+export declare type TraceConfig = {
   tracer?: string;
   onlyTopCall?: boolean;
   disableStorage?: boolean;
@@ -56,17 +56,17 @@ export type DebugRpcApi = {
 };
 
 // TODO: Add more tracers
-export type CallTracerOutput = {
-  from: Address;
-  to: Address;
-  gas: Numbers;
-  gasUsed: Numbers;
-  input: Bytes;
-  output: Bytes;
-  value: Numbers;
+export interface CallTracerOutput<N = Numbers, A = Address, B = Bytes> {
+  from: A;
+  to: A;
+  gas: N;
+  gasUsed: N;
+  input: B;
+  output: B;
+  value: N;
   type: string;
   calls?: CallTracerOutput[];
-};
+}
 
 type DebugableMethodObject<CallOptions> = {
   traceCall(options?: CallOptions): Promise<CallTracerOutput>;
@@ -120,7 +120,7 @@ export class DebugContract<Abi extends ContractAbi> extends Contract<Abi> {
   }
 
   public get methods(): DebugableContractMethodsInterface<Abi> {
-    return this._debugableMethods;
+    return super.methods as DebugableContractMethodsInterface<Abi>;
   }
 }
 
@@ -216,6 +216,10 @@ export class DebugPlugin extends Web3PluginBase<DebugRpcApi> {
             ];
           }),
         ) as DebugableContractMethodsInterface<Abi>;
+      }
+
+      public get methods(): DebugableContractMethodsInterface<Abi> {
+        return this._debugableMethods;
       }
     };
   }
