@@ -66,6 +66,7 @@ export interface CallTracerOutput<N = Numbers, A = Address, B = Bytes> {
   value: N;
   type: string;
   calls?: CallTracerOutput[];
+  error?: string;
 }
 
 type DebugableMethodObject<CallOptions> = {
