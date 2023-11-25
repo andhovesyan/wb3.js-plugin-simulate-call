@@ -3,7 +3,7 @@ import type { Transaction } from "web3-types";
 import { DebugPlugin } from "../src/debug-plugin";
 
 const NODE_URL: string =
-  "https://sleek-wiser-pool.quiknode.pro/a85cbcccb267d82f279f62ec0a37aab2f51de129/";
+  "https://ethereum.blockpi.network/v1/rpc/2df67605dbf192fa622bbdf453dd42e55334ee4c";
 
 const tx: Transaction = {
   from: "0x035C9c507149Fa30b17F9735BF97B4642C73464f",

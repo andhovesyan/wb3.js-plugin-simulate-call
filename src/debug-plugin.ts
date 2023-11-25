@@ -104,9 +104,9 @@ export type DebugableContractMethodsInterface<Abi extends ContractAbi> = {
 
 function configureTracer(tracer: string | TraceConfig): TraceConfig {
   if (typeof tracer === "string") {
-    return { tracer };
+    tracer = { tracer };
   } else if (!tracer.tracer) {
-    return { ...tracer, tracer: "callTracer" };
+    tracer = { tracer: "callTracer", ...tracer };
   }
   return tracer;
 }
