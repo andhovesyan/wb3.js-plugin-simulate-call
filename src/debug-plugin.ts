@@ -63,7 +63,7 @@ export interface CallTracerOutput<N = Numbers, A = Address, B = Bytes> {
   gasUsed: N;
   input: B;
   output: B;
-  value: N;
+  value?: N;
   type: string;
   calls?: CallTracerOutput[];
   error?: string;
